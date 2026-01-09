@@ -1,3 +1,5 @@
+This repository is only for testing purposes.
+
 ![Kodi Logo](docs/resources/banner.png)
 
 <p align="center">
