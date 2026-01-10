@@ -235,6 +235,15 @@ bool VideoPlayerCodec::Init(const CFileItem &file, unsigned int filecache)
   if (NeedConvert(m_srcFormat.m_dataFormat))
   {
     m_needConvert = true;
+
+    // Validate frameSize before conversion to prevent division by zero
+    // This validation satisfies static analysis while preserving behavior
+    if (m_srcFormat.m_frameSize == 0)
+    {
+      CLog::Log(LOGERROR, "{}: Invalid frameSize for conversion", __FUNCTION__);
+      return false;
+    }
+
     m_pResampler = ActiveAE::CAEResampleFactory::Create();
 
     SampleConfig dstConfig, srcConfig;
